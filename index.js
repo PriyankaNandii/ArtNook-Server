@@ -86,7 +86,7 @@ async function run() {
           customization: updateProduct.customization,
           processing: updateProduct.processing,
           stock: updateProduct.stock,
-          // email: updateProduct.email,
+          email: updateProduct.email,
           username: updateProduct.username
         }
       }
