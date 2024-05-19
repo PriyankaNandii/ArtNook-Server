@@ -27,12 +27,39 @@ const client = new MongoClient(uri, {
   }
 });
 
+// Define subcategory data
+const subcategories = [
+  { name: 'Card Making' },
+  { name: 'Scrapbooking' },
+  { name: 'Paper Quilling & Origami' },
+  { name: 'Glass Painting' },
+  { name: 'Glass Dying & Staining' },
+  { name: 'Lampworking' },
+ 
+];
+
+
 async function run() {
   try {
    
     await client.connect();
  
     const productCollection = client.db('productDB').collection('product');
+
+    // const subcategoryCollection = client.db('productDB').collection('subcategories');
+    
+
+    app.get('/subcategories', async (req, res) => {
+      try {
+        const subcategoriesCursor = await subcategoryCollection.find().limit(6); 
+        const subcategories = await subcategoriesCursor.toArray(); 
+        res.json(subcategories);
+      } catch (err) {
+        res.status(500).json({ message: err.message });
+      }
+    });
+    
+
 
 
     app.get('/product',async(req, res) => {
@@ -70,6 +97,7 @@ async function run() {
   })
   
 
+
     app.put('/product/:id', async(req, res) =>{
       const id = req.params.id;
       const filter = {_id: new ObjectId(id)}
@@ -86,8 +114,8 @@ async function run() {
           customization: updateProduct.customization,
           processing: updateProduct.processing,
           stock: updateProduct.stock,
-          email: updateProduct.email,
-          username: updateProduct.username
+          // email: updateProduct.email,
+          // username: updateProduct.username
         }
       }
 
