@@ -46,7 +46,7 @@ async function run() {
  
     const productCollection = client.db('productDB').collection('product');
 
-    // const subcategoryCollection = client.db('productDB').collection('subcategories');
+    const subcategoryCollection = client.db('productDB').collection('subcategories');
     
 
     app.get('/subcategories', async (req, res) => {
